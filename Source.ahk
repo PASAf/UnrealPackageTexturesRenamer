@@ -38,13 +38,13 @@ Loop, Parse, %SrcList%, `n
 		else
 		{
 			NamePosStart 		:= InStr(A_LoopReadLine, "NAME=") + 5
-			NamePosEnd 			:= InStr(A_LoopReadLine, "FILE=", false, NamePosStart)
-			Name 				:= Trim(SubStr(A_LoopReadLine, NamePosStart, NamePosEnd-NamePosStart))
+			NamePosEnd 		:= InStr(A_LoopReadLine, "FILE=", false, NamePosStart)
+			Name 			:= Trim(SubStr(A_LoopReadLine, NamePosStart, NamePosEnd-NamePosStart))
 			RealNamePosStart	:= NamePosEnd + 5
 			RealNamePosEnd		:= InStr(A_LoopReadLine, "GROUP=", false, RealNamePosStart)
-			RealName 			:= Trim(SubStr(A_LoopReadLine, RealNamePosStart, RealNamePosEnd-RealNamePosStart))
-			Extension			:= SubStr(RealName, -4)
-			RunWait, xcopy "%Dest%\%Name%%Extension%" "%Dest%\%RealName%*",,UseErrorLevel
+			RealName 		:= Trim(SubStr(A_LoopReadLine, RealNamePosStart, RealNamePosEnd-RealNamePosStart))
+			Extension		:= SubStr(RealName, -4)
+			Run, xcopy "%Dest%\%Name%%Extension%" "%Dest%\%RealName%*",,Hide UseErrorLevel
 			if (A_LastError != 0)
 			{
 				MsgBox, 16, Error, There error araised while trying to copy`n%Dest%\%Name%%Extension%`nto`n%Dest%\%RealName%`nTexture mentioned in %A_LoopField%:%A_Index%
@@ -56,3 +56,4 @@ Loop, Parse, %SrcList%, `n
 		}
 	}
 }
+MsgBox, 64, Textures renamer, Done!
